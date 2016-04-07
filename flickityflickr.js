@@ -36,7 +36,7 @@
 							for (var i = 0; i < results.length; i++) {
 
 								// If this is the first image to be loaded
-								$(this).append('<div id="flickr_slide_' + id + '-' + i + '" class="flickr_slide"><a class="flickr_link" href="' + results[i].link[0].href + '"><img class="flickr_image"' + (i === 0 ? ' onload="$.fn.flickityFlickr.shows[\'' + id + '\'].css({ \'visibility\': \'visible\', \'min-height\': $(\'#flickr_slide_' + id + '-' + i + '\').height() });"' : '') + ' src="' + results[i].link[1].href + '" /></a></div>');
+								$(this).append('<div id="flickr_slide_' + id + '-' + i + '" class="flickr_slide"><a class="flickr_link" href="' + results[i].link[0].href + '"><img class="flickr_image"' + (i === 0 ? ' onload="$.fn.flickityFlickr.shows[\'' + id + '\'].find(\'.flickity-viewport\').css({\'min-height\': $(\'#flickr_slide_' + id + '-' + i + '\').height() });$.fn.flickityFlickr.shows[\'' + id + '\'].css(\'visibility\', \'visible\');"' : '') + ' src="' + results[i].link[1].href + '" /></a></div>');
 
 							}
 
