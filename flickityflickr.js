@@ -8,6 +8,8 @@
 			// Stop if not a valid selector
 			if (!this.length) return false;
 
+			this.css('visibility', 'hidden');
+
 			if (!!options && typeof options.flickrId === 'string') {
 
 				$.ajax({
@@ -24,12 +26,17 @@
 						// Stop if no images uploaded
 						if (!results) { console.log('No images found in this Flickr feed. Have you uploaded content?'); }
 
+						// This show will have slides. Record that it is hidden for unhide on first load
+						var id = '' + Math.floor(Math.random() * 100000);
+						$.fn.flickityFlickr.shows[id] = that;
+
 						// Insert slides into specified shows
 						that.each(function() {
 
 							for (var i = 0; i < results.length; i++) {
 
-								$(this).append('<div class="flickr_slide"><a class="flickr_link" href="' + results[i].link[0].href + '"><img class="flickr_image" src="' + results[i].link[1].href + '" /></a></div>');
+								// If this is the first image to be loaded
+								$(this).append('<div id="flickr_slide_' + id + '-' + i + '" class="flickr_slide"><a class="flickr_link" href="' + results[i].link[0].href + '"><img class="flickr_image"' + (i === 0 ? ' onload="$.fn.flickityFlickr.shows[\'' + id + '\'].css(\'visibility\', \'visible\')"' : '') + ' src="' + results[i].link[1].href + '" /></a></div>');
 
 							}
 
@@ -60,5 +67,7 @@
 			}
 
 		}
+
+		$.fn.flickityFlickr.shows = {};
 	}
 })();
